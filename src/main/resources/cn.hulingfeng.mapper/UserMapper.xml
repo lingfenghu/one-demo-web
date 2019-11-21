@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.hulingfeng.ylzdemo.mapper.UserMapper">
+    <resultMap id="userMap" type="cn.hulingfeng.ylzdemo.model.po.User">
+        <result property="username" column="username"></result>
+        <result property="password" column="password"></result>
+    </resultMap>
+    <select id="list" resultType="cn.hulingfeng.ylzdemo.model.po.User">
+        SELECT * FROM "user"
+    </select>
+</mapper>
