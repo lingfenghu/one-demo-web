@@ -10,14 +10,14 @@ import java.util.List;
  * @title: UserMapper
  * @projectName ylzDemo
  * @description: TODO
- * @date 2019/11/21 15:16
+ * @date 2019/11/21 17:57
  */
-@Mapper
+//@Mapper 启动时加上了MapperScan就不需要一一注解
 public interface UserMapper {
 
     /**
      * 查询所有用户
      * @return
      */
-    public List<User> list();
+    List<User> list();
 }
