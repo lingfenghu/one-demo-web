@@ -1,20 +1,26 @@
-package cn.hulingfeng.ylzdemo;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+package cn.hulingfeng.ylzdemo.utils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Random;
 
-@SpringBootTest
-class YlzDemoApplicationTests {
+/**
+ * @author hlf
+ * @title: AuthCodeUtil
+ * @projectName ylzDemo
+ * @description: TODO
+ * @date 2019/11/22 10:31
+ */
+public class AuthCodeUtil {
 
-    @Test
-    void contextLoads() {
+    /**
+     *
+     */
+    public boolean generateAuthCode() {
         int width = 80;
         int height = 32;
         //create image
@@ -37,23 +43,17 @@ class YlzDemoApplicationTests {
         }
         //generate a random code
         String capstr = hash1.substring(0,4);
-        System.out.println(capstr);
 //        session.setAttribute("key",capstr);
         g.setColor(new Color(0,100,0));
         g.setFont(new Font("Candara",Font.BOLD,24));
         g.drawString(capstr,8,24);
         g.dispose();
-//        response.setContentType("image/jpeg");
-//        out.clear();
-//        out = pageContext.pushBody();
-//        OutputStream strm = response.getOutputStream();
-//        ImageIO.write(image,"jpeg",strm);
-//        strm.close();
         try{
-            ImageIO.write(image,"jpeg",new File("auth-code.jpeg"));
+            ImageIO.write(image,"jpeg",new File("resources/static/image/auth-code.jpeg"));
         }catch (IOException e){
             e.printStackTrace();
+            return false;
         }
+        return true;
     }
-
 }

@@ -18,7 +18,8 @@ import java.util.List;
 @RestController
 public class HelloController {
 
-    @Autowired(required = false)//require避免烦人的波浪错误提示
+    @Autowired
+    //require避免烦人的波浪错误提示,或者warning
     private UserMapper userMapper;
     /**
      * 测试SpringBoot启动成功
