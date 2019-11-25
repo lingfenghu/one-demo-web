@@ -4,13 +4,13 @@ import lombok.Data;
 
 /**
  * @author hlf
- * @title: ResponseUtil
+ * @title: ResultUtil
  * @projectName ylzDemo
  * @description: TODO
  * @date 2019/11/22 23:40
  */
 @Data
-public class ResponseUtil {
+public class ResultUtil {
     private Integer code;
     private String msg;
     private Object object;

@@ -36,5 +36,8 @@ spring:
 #    restart:
 #      #部署生效
 #      enabled: true
-      #重启目录
+#      #重启目录
 #      additional-paths: src/main/java
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html

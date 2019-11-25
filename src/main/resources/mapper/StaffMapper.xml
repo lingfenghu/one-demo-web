@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.hulingfeng.ylzdemo.mapper.StaffMapper">
+    <resultMap id="staffMap" type="cn.hulingfeng.ylzdemo.model.po.Staff">
+        <id property="staffId" column="staff_id"></id>
+        <result property="staffName" column="staff_name"></result>
+        <result property="sex" column="sex"></result>
+        <result property="age" column="age"></result>
+        <result property="identityId" column="identity_id"></result>
+        <result property="jobGrade" column="job_grade"></result>
+        <result property="tel" column="tel"></result>
+        <result property="cardId" column="card_id"></result>
+        <result property="salaryCardId" column="salary_card_id"></result>
+        <result property="project" column="project"></result>
+        <result property="enterprise" column="enterprise"></result>
+        <result property="jobType" column="job_type"></result>
+        <result property="grade" column="grade"></result>
+    </resultMap>
+    <insert id="add" keyProperty="staffId" useGeneratedKeys="true">
+        INSERT INTO "staff"("staff_name","sex","identity_id","job_grade","tel","card_id","salary_cart_id")
+        VALUES (#{staffName},#{sex},#{identityId},#{jobGrade},#{tel},#{cardId},#{salaryCardId})
+    </insert>
+    <select id="list" resultMap="staffMap">
+        SELECT * FROM "staff"
+    </select>
+    <select id="queryByParamenters" resultType="cn.hulingfeng.ylzdemo.model.po.Staff">
+        SELECT * FROM "staff" WHERE "staff_name" LIKE CONCAT('%',#{staffName},'%') AND "project" = #{project} AND "card_id" = #{cardId}
+    </select>
+    <update id="update" parameterType="cn.hulingfeng.ylzdemo.model.po.Staff">
+        UPDATE "staff"
+        <set>
+            <if test="staffName != null">"staff_name" = #{staff_name},</if>
+            <if test="sex != null">"sex" = #{sex},</if>
+            <if test="age != null">"age" = #{age},</if>
+            <if test="identityId != null">"identity_id" = #{identity_id},</if>
+            <if test="jobGrade != null">"job_grade" = #{job_grade},</if>
+            <if test="tel != null">"tel" = #{tel},</if>
+            <if test="cardId != null">"card_id" = #{card_id},</if>
+            <if test="salaryCardId != null">"salary_card_id" = #{salary_card_id},</if>
+            <if test="project != null">"project" = #{project},</if>
+            <if test="enterprise != null">"enterprise" = #{enterprise},</if>
+            <if test="jobType != null">"job_type" = #{job_type},</if>
+            <if test="grade != null">"grade" = #{grade}</if>
+        </set>
+        WHERE "staff_id" = #{staffId}
+    </update>
+    <delete id="delete">
+        DELETE FROM "staff" WHERE "staff_id"=#{staffId}
+    </delete>
+    <select id="statsBySex" resultType="cn.hulingfeng.ylzdemo.model.vo.StatisticSex">
+        SELECT "sex",COUNT("sex") "count" FROM "staff" GROUP BY "sex"
+    </select>
+</mapper>

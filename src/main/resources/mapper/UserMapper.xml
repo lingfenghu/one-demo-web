@@ -6,9 +6,9 @@
         <result property="password" column="password"></result>
     </resultMap>
     <select id="list" resultType="cn.hulingfeng.ylzdemo.model.po.User">
-        SELECT * FROM "t_user"
+        SELECT * FROM "user"
     </select>
-    <select id="login" parameterType="string" resultMap="userMap">
-        SELECT * FROM "t_user" WHERE "username" = #{username}
+    <select id="queryByUsername" parameterType="string" resultMap="userMap">
+        SELECT * FROM "user" WHERE "username" = #{username}
     </select>
 </mapper>

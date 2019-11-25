@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -18,9 +20,10 @@ import java.util.Random;
 public class AuthCodeUtil {
 
     /**
-     *
+     *二维码生成
      */
-    public boolean generateAuthCode() {
+    public static Map generateAuthCode() {
+        Map<String,Object> map = new HashMap();
         int width = 80;
         int height = 32;
         //create image
@@ -43,17 +46,12 @@ public class AuthCodeUtil {
         }
         //generate a random code
         String capstr = hash1.substring(0,4);
-//        session.setAttribute("key",capstr);
+        map.put("key",capstr);
         g.setColor(new Color(0,100,0));
         g.setFont(new Font("Candara",Font.BOLD,24));
         g.drawString(capstr,8,24);
         g.dispose();
-        try{
-            ImageIO.write(image,"jpeg",new File("resources/static/image/auth-code.jpeg"));
-        }catch (IOException e){
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+        map.put("img",image);
+        return map;
     }
 }

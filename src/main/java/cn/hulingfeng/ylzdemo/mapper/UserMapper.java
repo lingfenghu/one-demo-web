@@ -1,8 +1,6 @@
 package cn.hulingfeng.ylzdemo.mapper;
 
 import cn.hulingfeng.ylzdemo.model.po.User;
-import cn.hulingfeng.ylzdemo.utils.ResponseUtil;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -28,5 +26,5 @@ public interface UserMapper {
      * @param username
      * @return
      */
-    List<User> login(@Param("username") String username);
+    List<User> queryByUsername(@Param("username") String username);
 }

@@ -1,10 +1,7 @@
 package cn.hulingfeng.ylzdemo.controller;
 
-import cn.hulingfeng.ylzdemo.model.po.User;
 import cn.hulingfeng.ylzdemo.service.UserService;
-import cn.hulingfeng.ylzdemo.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -14,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
  * @description: TODO
  * @date 2019/11/21 14:46
  */
+//@Controller
 @RestController
+//@CrossOrigin //解决跨域
 public class MainController {
 
     @Autowired
@@ -28,8 +27,12 @@ public class MainController {
         return "index";
     }
 
-    @PostMapping(value = {"/login"})
-    public ResponseUtil login(@RequestBody User user){
-        return userService.login(user);
+    /**
+     * 访问登录页面
+     * @return
+     */
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
     }
 }
