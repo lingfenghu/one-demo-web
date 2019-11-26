@@ -2,12 +2,11 @@ package cn.hulingfeng.ylzdemo.controller;
 
 import cn.hulingfeng.ylzdemo.mapper.UserMapper;
 import cn.hulingfeng.ylzdemo.model.po.User;
-import cn.hulingfeng.ylzdemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
+
 
 /**
  * @author hlf
@@ -20,6 +19,7 @@ import java.util.List;
 public class HelloController {
 
     @Autowired
+    //require避免烦人的波浪错误提示,或者warning
     private UserMapper userMapper;
     /**
      * 测试SpringBoot启动成功
