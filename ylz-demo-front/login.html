@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>	
+<head>
+<meta charset="utf-8">
+<title>Login</title>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<link href="css/login-style.css" rel='stylesheet' type='text/css' />
+</head>
+<body>
+</script>
+ <h1>Login Form</h1>
+<div class="login-form">
+    <form>
+        <input type="text" class="text" value="" placeholder="input your username" onfocus="this.value = '' ;">
+        <div class="key">
+            <input type="password" value="" placeholder="input your password" onfocus="this.value = '';">
+        </div>
+        <div class="code">
+            <input type="text"  class="auth-code" value="" placeholder="input your auth-code">
+            <button onclick=""><img id="img" src="/images/pass.png" alt="code"></button>
+        </div>
+    </form>
+	<div class="signin">
+		<input type="submit" value="Login" >
+	</div>
+</div>
+<div class="copy-rights"></div>
+<script>
+    new Vue({
+        el: '.text',
+        placeholder:"hello"
+    })
+</script>
+</body>
+</html>
