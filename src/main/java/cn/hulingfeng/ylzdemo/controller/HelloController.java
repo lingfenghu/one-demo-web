@@ -38,4 +38,13 @@ public class HelloController {
     public List<User> listUser(){
         return userMapper.list();
     }
+
+    /**
+     * 测试接口
+     * @return
+     */
+    @RequestMapping("test")
+    public String test(){
+        return "2222";
+    }
 }

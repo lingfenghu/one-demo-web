@@ -16,15 +16,20 @@
         <result property="jobType" column="job_type"></result>
         <result property="grade" column="grade"></result>
     </resultMap>
-    <insert id="add" keyProperty="staffId" useGeneratedKeys="true">
+    <insert id="add" parameterType="cn.hulingfeng.ylzdemo.model.po.Staff">
         INSERT INTO "staff"("staff_name","sex","identity_id","job_grade","tel","card_id","salary_cart_id")
         VALUES (#{staffName},#{sex},#{identityId},#{jobGrade},#{tel},#{cardId},#{salaryCardId})
     </insert>
     <select id="list" resultMap="staffMap">
         SELECT * FROM "staff"
     </select>
-    <select id="queryByParamenters" resultType="cn.hulingfeng.ylzdemo.model.po.Staff">
-        SELECT * FROM "staff" WHERE "staff_name" LIKE CONCAT('%',#{staffName},'%') AND "project" = #{project} AND "card_id" = #{cardId}
+    <select id="queryByParamenters" resultMap="staffMap">
+        SELECT * FROM "staff"
+        <trim prefix="WHERE" prefixOverrides="AND|OR ">
+            <if test="project != ''">"project" = #{project} </if>
+            <if test="cardId != ''">AND "card_id" = #{cardId} </if>
+            <if test="staffName != ''">AND"staff_name" LIKE CONCAT(CONCAT('%',#{staffName}),'%')</if>
+        </trim>
     </select>
     <update id="update" parameterType="cn.hulingfeng.ylzdemo.model.po.Staff">
         UPDATE "staff"
@@ -44,10 +49,16 @@
         </set>
         WHERE "staff_id" = #{staffId}
     </update>
-    <delete id="delete">
+    <delete id="delete" parameterType="integer">
         DELETE FROM "staff" WHERE "staff_id"=#{staffId}
     </delete>
-    <select id="statsBySex" resultType="cn.hulingfeng.ylzdemo.model.vo.StatisticSex">
-        SELECT "sex",COUNT("sex") "count" FROM "staff" GROUP BY "sex"
+    <select id="statsBySexWithParams" resultType="cn.hulingfeng.ylzdemo.model.vo.StatisticSex">
+        SELECT "sex",COUNT("sex") "count" FROM "staff"
+        <where>
+            <if test="jobType!=''">"job_type" = #{jobType}</if>
+            <if test="ageBegin != 0 and ageEnd != 0 ">AND "age" BETWEEN #{ageBegin} AND #{ageEnd}</if>
+            <if test="grade!=''">AND "grade" = #{grade}</if>
+        </where>
+        GROUP BY "sex"
     </select>
 </mapper>

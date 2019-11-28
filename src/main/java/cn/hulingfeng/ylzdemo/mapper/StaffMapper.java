@@ -4,6 +4,7 @@ import cn.hulingfeng.ylzdemo.model.po.Staff;
 import cn.hulingfeng.ylzdemo.model.vo.StatisticSex;
 import com.github.pagehelper.Page;
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.apache.ibatis.annotations.Lang;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,7 +25,7 @@ public interface StaffMapper {
      * @param staff
      * @return
      */
-    Boolean add(@Param("staff") Staff staff);
+    Boolean add(Staff staff);
 
     /**
      * 查询所有人员
@@ -39,7 +40,7 @@ public interface StaffMapper {
      * @param cardId
      * @return
      */
-    List<Staff> queryByParamenters(@Param("staffName")String staffName,@Param("project") String project,@Param("cardId")String cardId);
+    List<Staff> queryByParamenters(@Param("project") String project,@Param("cardId") String cardId,@Param("staffName") String staffName);
 
     /**
      *
@@ -53,11 +54,11 @@ public interface StaffMapper {
      * @param staffId
      * @return
      */
-    Boolean delete(@Param("staffId")String staffId);
+    Boolean delete(@Param("staffId") Integer staffId);
 
     /**
      *
      * @return
      */
-    List<StatisticSex> statsBySex();
+    List<StatisticSex> statsBySexWithParams(@Param("jobType")String jobType, @Param("ageBegin")Integer ageBegin, @Param("ageEnd")Integer ageEnd, @Param("grade")String grade );
 }

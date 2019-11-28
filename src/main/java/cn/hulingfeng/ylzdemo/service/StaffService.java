@@ -2,8 +2,11 @@ package cn.hulingfeng.ylzdemo.service;
 
 import cn.hulingfeng.ylzdemo.mapper.StaffMapper;
 import cn.hulingfeng.ylzdemo.model.po.Staff;
+import cn.hulingfeng.ylzdemo.model.vo.StatisticSex;
+import cn.hulingfeng.ylzdemo.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -26,5 +29,33 @@ public class StaffService {
 
     public List<Staff> list(){
         return staffMapper.list();
+    }
+
+    public List<StatisticSex> statisticByAgeWithParams(Integer param1,Integer param2,Integer param3){
+        String jobType = "",grade = "";
+        switch (param1){
+            case 0: jobType="";break;
+            case 1: jobType="普通";break;
+            case 2: jobType="特殊";break;
+            default:
+        }
+        Integer ageBegin = 0;
+        Integer ageEnd = 0;
+        switch (param2){
+            case 0: ageBegin=0;ageEnd=0;break;
+            case 1: ageBegin=18;ageEnd=30;break;
+            case 2: ageBegin=30;ageEnd=45;break;
+            case 3: ageBegin=45;ageEnd=60;break;
+            default:
+        }
+        switch (param3){
+            case 0: grade="";break;
+            case 1: grade="A";break;
+            case 2: grade="B";break;
+            case 3: grade="C";break;
+            default:
+        }
+        List<StatisticSex> statsResult = staffMapper.statsBySexWithParams(jobType,ageBegin,ageEnd,grade);
+        return statsResult;
     }
 }

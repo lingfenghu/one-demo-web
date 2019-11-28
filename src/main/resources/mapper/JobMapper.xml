@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.hulingfeng.ylzdemo.mapper.JobsMapper">
-    <resultMap id="jobsMap" type="cn.hulingfeng.ylzdemo.model.po.Jobs">
+<mapper namespace="cn.hulingfeng.ylzdemo.mapper.JobMapper">
+    <resultMap id="jobsMap" type="cn.hulingfeng.ylzdemo.model.po.Job">
         <id property="jobId" column="job_id"></id>
         <result property="skillType" column="skill_type"></result>
         <result property="standardSalary" column="standard_salary"></result>
@@ -16,9 +16,9 @@
     <update id="update">
         UPDATE "jobs"
         <set>
-            <if test="staffName != null">"skill_type" = #{skillType},</if>
-            <if test="sex != null">"standard_salary" = #{standardSalary},</if>
-            <if test="age != null">"job_type" = #{jobType}</if>
+            <if test="skillType != null">"skill_type" = #{skillType},</if>
+            <if test="standardSalary != null">"standard_salary" = #{standardSalary},</if>
+            <if test="jobType != null">"job_type" = #{jobType}</if>
         </set>
         WHERE "job_id"=#{jobId}
     </update>

@@ -1,25 +1,25 @@
 package cn.hulingfeng.ylzdemo.mapper;
 
-import cn.hulingfeng.ylzdemo.model.po.Jobs;
-import org.apache.ibatis.annotations.Mapper;
+import cn.hulingfeng.ylzdemo.model.po.Job;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
  * @author hlf
- * @title: JobsMapper
+ * @title: JobMapper
  * @projectName ylzDemo
  * @description: TODO
  * @date 2019/11/24 21:20
  */
 //@Mapper
-public interface JobsMapper {
+public interface JobMapper {
 
     /**
      * 查询所有工种
      * @return
      */
-    List<Jobs> list();
+    List<Job> list();
 
     /**
      * 添加工种
@@ -31,11 +31,11 @@ public interface JobsMapper {
      * 更新工种
      * @return
      */
-    Boolean update();
+    Boolean update(Job job);
 
     /**
      * 删除工种
      * @return
      */
-    Boolean delete();
+    Boolean delete(@Param("jobId")Integer jobId);
 }

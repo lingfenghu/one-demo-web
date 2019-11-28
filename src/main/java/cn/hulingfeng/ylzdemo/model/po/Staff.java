@@ -13,7 +13,7 @@ import lombok.Data;
 public class Staff {
     private Integer staffId;
     private String staffName;
-    private Boolean sex;
+    private Integer sex;
     private Integer age;
     private String identityId;
     private String jobGrade;
