@@ -3,10 +3,8 @@ package cn.hulingfeng.ylzdemo.service;
 import cn.hulingfeng.ylzdemo.mapper.StaffMapper;
 import cn.hulingfeng.ylzdemo.model.po.Staff;
 import cn.hulingfeng.ylzdemo.model.vo.StatisticSex;
-import cn.hulingfeng.ylzdemo.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -23,14 +21,21 @@ public class StaffService {
     @Autowired
     private StaffMapper staffMapper;
 
-    public boolean addStaff(Staff staff){
-        return staffMapper.add(staff);
-    }
-
+    /**
+     * 查询所用人员
+     * @return
+     */
     public List<Staff> list(){
         return staffMapper.list();
     }
 
+    /**
+     * 性别统计
+     * @param param1
+     * @param param2
+     * @param param3
+     * @return
+     */
     public List<StatisticSex> statisticByAgeWithParams(Integer param1,Integer param2,Integer param3){
         String jobType = "",grade = "";
         switch (param1){

@@ -6,6 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 无需认证注解类
  * @author hlf
  * @title: PassToken
  * @projectName ylzDemo

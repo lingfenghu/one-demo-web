@@ -16,13 +16,13 @@ import java.util.List;
 public interface UserMapper {
 
     /**
-     * 查询所有用户
+     * 查询所用用户
      * @return
      */
     List<User> list();
 
     /**
-     * 用户登录
+     * 查询该用户名用户
      * @param username
      * @return
      */

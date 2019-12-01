@@ -24,7 +24,4 @@ public class Staff {
     private String enterprise;
     private String jobType;
     private String grade;
-
-
-
 }

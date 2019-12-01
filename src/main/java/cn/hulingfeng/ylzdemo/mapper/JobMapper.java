@@ -25,7 +25,7 @@ public interface JobMapper {
      * 添加工种
      * @return
      */
-    Boolean add();
+    Boolean add(Job job);
 
     /**
      * 更新工种

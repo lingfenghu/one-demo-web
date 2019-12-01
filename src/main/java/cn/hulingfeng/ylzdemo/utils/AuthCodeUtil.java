@@ -1,16 +1,13 @@
 package cn.hulingfeng.ylzdemo.utils;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 /**
+ * 图形验证码工具类
  * @author hlf
  * @title: AuthCodeUtil
  * @projectName ylzDemo
@@ -20,7 +17,7 @@ import java.util.Random;
 public class AuthCodeUtil {
 
     /**
-     *二维码生成
+     * 图形验证码生成
      */
     public static Map generateAuthCode() {
         Map<String,Object> map = new HashMap();
@@ -45,11 +42,11 @@ public class AuthCodeUtil {
             g.drawOval(x,y,0,0);
         }
         //generate a random code
-        String capstr = hash1.substring(0,4);
-        map.put("key",capstr);
+        String randomCode = hash1.substring(0,4);
+        map.put("key",randomCode);
         g.setColor(new Color(0,100,0));
         g.setFont(new Font("Candara",Font.BOLD,24));
-        g.drawString(capstr,8,24);
+        g.drawString(randomCode,8,24);
         g.dispose();
         map.put("img",image);
         return map;

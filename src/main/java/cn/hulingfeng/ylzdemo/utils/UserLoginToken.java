@@ -6,6 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 需用户登录注解类
  * @author hlf
  * @title: UserLoginToken
  * @projectName ylzDemo

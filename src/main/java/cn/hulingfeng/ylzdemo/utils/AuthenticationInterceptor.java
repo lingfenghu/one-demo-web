@@ -18,6 +18,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 /**
+ * 请求拦截器
  * @author hlf
  * @title: AuthenticationInterceptor
  * @projectName ylzDemo
@@ -29,24 +30,32 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     @Autowired
     private UserMapper userMapper;
 
+    /**
+     * 请求前进行认证
+     * @param httpServletRequest
+     * @param httpServletResponse
+     * @param object
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
         // 从 http 请求头中取出 token
-        String token = httpServletRequest.getHeader("token");
+        String token = httpServletRequest.getHeader("Authorization");
         // 如果不是映射到方法直接通过
         if (!(object instanceof HandlerMethod)) {
             return true;
         }
         HandlerMethod handlerMethod = (HandlerMethod) object;
         Method method = handlerMethod.getMethod();
-        //检查是否有pass token注释，有则跳过认证
+        //检查是否有@PassToken注释，有则跳过认证
         if (method.isAnnotationPresent(PassToken.class)) {
             PassToken passToken = method.getAnnotation(PassToken.class);
             if (passToken.required()) {
                 return true;
             }
         }
-        //检查有没有需要用户权限的注解
+        //检查有没有需要@UserLoginToken的注解
         if (method.isAnnotationPresent(UserLoginToken.class)) {
             UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);
             if (userLoginToken.required()) {
@@ -79,15 +88,12 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void postHandle(HttpServletRequest httpServletRequest,
-                           HttpServletResponse httpServletResponse,
-                           Object o, ModelAndView modelAndView) throws Exception {
+    public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) {
 
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest httpServletRequest,
-                                HttpServletResponse httpServletResponse,
-                                Object o, Exception e) throws Exception {
+    public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) {
+
     }
 }

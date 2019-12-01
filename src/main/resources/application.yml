@@ -1,15 +1,18 @@
+server:
+  port: 8080
+#mybatis插件配置
 mybatis:
   config-location: classpath:mybatis-config.xml
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: cn.hulingfeng.model.po  # 注意：对应实体类的路径
-server:
-  port: 8080
+#pagehelper插件配置
 pagehelper:
   helperDialect: oracle
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
   returnPageInfo: check
+#spring datasource配置
 spring:
   datasource:
     name: orcl
@@ -32,14 +35,11 @@ spring:
       test-on-return: false
       pool-prepared-statements: false
       max-pool-prepared-statement-per-connection-size: 20
-#  devtools:
-#    restart:
-#      #部署生效
-#      enabled: true
-#      #重启目录
-#      additional-paths: src/main/java
+#模板文件.html存放
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
-jwt:
-  header: Authorization
+#日志级别
+logging:
+  level:
+    root: info

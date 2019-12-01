@@ -17,13 +17,12 @@
         <result property="grade" column="grade"></result>
     </resultMap>
     <insert id="add" parameterType="cn.hulingfeng.ylzdemo.model.po.Staff">
-        INSERT INTO "staff"("staff_name","sex","identity_id","job_grade","tel","card_id","salary_cart_id")
-        VALUES (#{staffName},#{sex},#{identityId},#{jobGrade},#{tel},#{cardId},#{salaryCardId})
+        INSERT INTO "staff"("staff_name","sex","identity_id","job_grade","tel","card_id","salary_card_id") VALUES (#{staffName},#{sex},#{identityId},#{jobGrade},#{tel},#{cardId},#{salaryCardId})
     </insert>
     <select id="list" resultMap="staffMap">
         SELECT * FROM "staff"
     </select>
-    <select id="queryByParamenters" resultMap="staffMap">
+    <select id="queryByParameters" resultMap="staffMap">
         SELECT * FROM "staff"
         <trim prefix="WHERE" prefixOverrides="AND|OR ">
             <if test="project != ''">"project" = #{project} </if>
@@ -34,17 +33,17 @@
     <update id="update" parameterType="cn.hulingfeng.ylzdemo.model.po.Staff">
         UPDATE "staff"
         <set>
-            <if test="staffName != null">"staff_name" = #{staff_name},</if>
+            <if test="staffName != null">"staff_name" = #{staffName},</if>
             <if test="sex != null">"sex" = #{sex},</if>
             <if test="age != null">"age" = #{age},</if>
-            <if test="identityId != null">"identity_id" = #{identity_id},</if>
-            <if test="jobGrade != null">"job_grade" = #{job_grade},</if>
+            <if test="identityId != null">"identity_id" = #{identityId},</if>
+            <if test="jobGrade != null">"job_grade" = #{jobGrade},</if>
             <if test="tel != null">"tel" = #{tel},</if>
-            <if test="cardId != null">"card_id" = #{card_id},</if>
-            <if test="salaryCardId != null">"salary_card_id" = #{salary_card_id},</if>
+            <if test="cardId != null">"card_id" = #{cardId},</if>
+            <if test="salaryCardId != null">"salary_card_id" = #{salaryCardId},</if>
             <if test="project != null">"project" = #{project},</if>
             <if test="enterprise != null">"enterprise" = #{enterprise},</if>
-            <if test="jobType != null">"job_type" = #{job_type},</if>
+            <if test="jobType != null">"job_type" = #{jobType},</if>
             <if test="grade != null">"grade" = #{grade}</if>
         </set>
         WHERE "staff_id" = #{staffId}
@@ -52,6 +51,9 @@
     <delete id="delete" parameterType="integer">
         DELETE FROM "staff" WHERE "staff_id"=#{staffId}
     </delete>
+    <select id="getProjects" resultType="string">
+        SELECT DISTINCT "project" FROM "staff" WHERE "project" IS NOT NULL
+    </select>
     <select id="statsBySexWithParams" resultType="cn.hulingfeng.ylzdemo.model.vo.StatisticSex">
         SELECT "sex",COUNT("sex") "count" FROM "staff"
         <where>
