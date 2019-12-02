@@ -8,6 +8,7 @@ import cn.hulingfeng.ylzdemo.utils.ResultUtil;
 import cn.hulingfeng.ylzdemo.utils.UserLoginToken;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,7 @@ import java.util.List;
  */
 @Slf4j
 @RestController
+@Api(tags = "人员相关接口")
 public class StaffController {
     //等价@Slf4j
 //    private static final Logger logger = LoggerFactory.getLogger(StaffController.class);
@@ -64,9 +66,14 @@ public class StaffController {
     @UserLoginToken
     @PostMapping("staff")
     public ResultUtil addStaff(@RequestBody Staff staff) {
-        Boolean res = staffMapper.add(staff);
-        ResultUtil resultUtil = res ? new ResultUtil(200,"新增人员信息成功",res) : new ResultUtil(500,"新增人员信息失败",res);
-        return  resultUtil;
+        Integer res = staffService.add(staff);
+        switch (res){
+            case -2: return new ResultUtil(406,"新增人员身份证号已存在",res);
+            case -1: return new ResultUtil(406,"新增人员从业卡号已存在",res);
+            case 0: return new ResultUtil(500,"新增人员信息失败",res);
+            case 1: return new ResultUtil(200,"新增人员信息成功",res);
+            default: return new ResultUtil(500,"新增人员信息失败",res);
+        }
     }
 
     /**

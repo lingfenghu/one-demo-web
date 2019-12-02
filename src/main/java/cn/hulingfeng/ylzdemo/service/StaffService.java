@@ -29,6 +29,24 @@ public class StaffService {
         return staffMapper.list();
     }
 
+    public Integer add(Staff staff) {
+        String cardId = staff.getCardId();
+        String identityId = staff.getIdentityId();
+        Integer thisCard = staffMapper.checkCardIdExist(cardId);
+        Integer thisIdentityId = staffMapper.checkIdentityIdExist(identityId);
+        if(thisCard > 0) {
+            return -1;
+        }
+        if(thisIdentityId > 0){
+            return -2;
+        }
+        if(staffMapper.add(staff)){
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+
     /**
      * 性别统计
      * @param param1

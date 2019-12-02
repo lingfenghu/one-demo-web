@@ -4,6 +4,7 @@ import cn.hulingfeng.ylzdemo.model.po.User;
 import cn.hulingfeng.ylzdemo.service.UserService;
 import cn.hulingfeng.ylzdemo.utils.ResultUtil;
 import cn.hulingfeng.ylzdemo.utils.UserLoginToken;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ import java.util.Map;
  */
 @Slf4j
 @RestController
+@Api(tags = "用户相关接口")
 public class UserController {
 
     @Autowired
@@ -65,6 +67,7 @@ public class UserController {
     public ResultUtil login(@RequestBody Map<String, Object> requestMap){
         User user = new User((String)requestMap.get("username"),(String) requestMap.get("password"));
         ResultUtil resultUtil = userService.login(user);
+        log.info((String) resultUtil.getObject());
         return resultUtil;
     }
 

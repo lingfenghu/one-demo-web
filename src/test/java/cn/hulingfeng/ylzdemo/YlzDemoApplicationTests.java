@@ -36,19 +36,12 @@ class YlzDemoApplicationTests {
             g.drawOval(x,y,0,0);
         }
         //generate a random code
-        String capstr = hash1.substring(0,4);
-        System.out.println(capstr);
-//        session.setAttribute("key",capstr);
+        String codeStr = hash1.substring(0,4);
+        System.out.println(codeStr);
         g.setColor(new Color(0,100,0));
         g.setFont(new Font("Candara",Font.BOLD,24));
-        g.drawString(capstr,8,24);
+        g.drawString(codeStr,8,24);
         g.dispose();
-//        response.setContentType("image/jpeg");
-//        out.clear();
-//        out = pageContext.pushBody();
-//        OutputStream strm = response.getOutputStream();
-//        ImageIO.write(image,"jpeg",strm);
-//        strm.close();
         try{
             ImageIO.write(image,"jpeg",new File("auth-code.jpeg"));
         }catch (IOException e){

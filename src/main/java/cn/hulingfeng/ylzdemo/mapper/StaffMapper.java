@@ -63,4 +63,18 @@ public interface StaffMapper {
      * @return
      */
     List<StatisticSex> statsBySexWithParams(@Param("jobType")String jobType, @Param("ageBegin")Integer ageBegin, @Param("ageEnd")Integer ageEnd, @Param("grade")String grade );
+
+    /**
+     * 检验用户从业卡是否已经存在
+     * @param cardId
+     * @return
+     */
+    Integer checkCardIdExist(@Param("cardId")String cardId);
+
+    /**
+     * 检验用户身份证号是否存在
+     * @param identityId
+     * @return
+     */
+    Integer checkIdentityIdExist(@Param("identityId")String identityId);
 }

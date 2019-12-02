@@ -63,4 +63,10 @@
         </where>
         GROUP BY "sex"
     </select>
+    <select id="checkCardIdExist" resultType="integer">
+        SELECT COUNT(*) FROM "staff" WHERE "card_id"=#{cardId}
+    </select>
+    <select id="checkIdentityIdExist" resultType="integer">
+        SELECT COUNT(*) FROM "staff" WHERE "identity_id"=#{identityId}
+    </select>
 </mapper>
