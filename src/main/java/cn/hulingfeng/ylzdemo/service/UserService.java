@@ -3,6 +3,7 @@ package cn.hulingfeng.ylzdemo.service;
 import cn.hulingfeng.ylzdemo.mapper.UserMapper;
 import cn.hulingfeng.ylzdemo.model.po.User;
 import cn.hulingfeng.ylzdemo.utils.AuthCodeUtil;
+import cn.hulingfeng.ylzdemo.utils.Md5Util;
 import cn.hulingfeng.ylzdemo.utils.ResultUtil;
 import cn.hulingfeng.ylzdemo.utils.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -54,7 +55,7 @@ public class UserService {
             resultUtil.setMsg("登录失败,用户不存在");
         }else{
             User realUser = list.get(0);
-            if(realUser.getPassword().equals(user.getPassword())){
+            if(realUser.getPassword().equals(encryptPassword(user.getPassword()))){
                 String token = TokenUtil.getToken(list.get(0));
                 resultUtil.setCode(200);
                 resultUtil.setMsg("登录成功");
@@ -85,5 +86,12 @@ public class UserService {
         }
     }
 
+    /**
+     * 加密用户密码
+     * @return
+     */
+    public String encryptPassword(String password) {
+        return Md5Util.EncoderByMd5(password);
+    }
 
 }

@@ -2,19 +2,23 @@ package cn.hulingfeng.ylzdemo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import sun.misc.BASE64Encoder;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 @SpringBootTest
 class YlzDemoApplicationTests {
 
     @Test
-    void contextLoads() {
+    void getImgCode() {
         int width = 80;
         int height = 32;
         //create image
@@ -47,6 +51,17 @@ class YlzDemoApplicationTests {
         }catch (IOException e){
             e.printStackTrace();
         }
+    }
+
+    @Test
+    void encryptPassword() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        String string = "123456";
+//        String string = "admin";
+        MessageDigest md5 = MessageDigest.getInstance("md5");
+        BASE64Encoder base64 = new BASE64Encoder();
+        //加密后的字符串
+        String newStr = base64.encode(md5.digest(string.getBytes("utf-8")));
+        System.out.println(newStr);
     }
 
 }
