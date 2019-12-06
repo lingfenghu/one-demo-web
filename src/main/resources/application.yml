@@ -1,5 +1,7 @@
 server:
   port: 8080
+  servlet:
+    context-path: /
 #mybatis插件配置
 mybatis:
   config-location: classpath:mybatis-config.xml
@@ -20,7 +22,7 @@ spring:
     druid:
       filters: stat
       driver-class-name: oracle.jdbc.driver.OracleDriver
-      url: jdbc:oracle:thin:@127.0.0.1:1521/orcl
+      url: jdbc:oracle:thin:@192.168.11.130:1521/orcl
       username: HLF
       password: 123456
       initial-size: 1

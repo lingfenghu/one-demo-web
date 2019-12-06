@@ -2,6 +2,7 @@ package cn.hulingfeng.ylzdemo.controller;
 
 import cn.hulingfeng.ylzdemo.mapper.StaffMapper;
 import cn.hulingfeng.ylzdemo.model.po.Staff;
+import cn.hulingfeng.ylzdemo.model.vo.StatisticAge;
 import cn.hulingfeng.ylzdemo.model.vo.StatisticSex;
 import cn.hulingfeng.ylzdemo.service.StaffService;
 import cn.hulingfeng.ylzdemo.utils.ResultUtil;
@@ -68,8 +69,8 @@ public class StaffController {
     public ResultUtil addStaff(@RequestBody Staff staff) {
         Integer res = staffService.add(staff);
         switch (res){
-            case -2: return new ResultUtil(406,"新增人员身份证号已存在",res);
-            case -1: return new ResultUtil(406,"新增人员从业卡号已存在",res);
+            case -1: return new ResultUtil(406,"新增人员身份证号已存在",res);
+//            case -1: return new ResultUtil(406,"新增人员从业卡号已存在",res);
             case 0: return new ResultUtil(500,"新增人员信息失败",res);
             case 1: return new ResultUtil(200,"新增人员信息成功",res);
             default: return new ResultUtil(500,"新增人员信息失败",res);
@@ -121,12 +122,32 @@ public class StaffController {
      * @param param3
      * @return
      */
-    @GetMapping("statistics/age")
-    public ResultUtil statisticByAgeWithParams(
+    @UserLoginToken
+    @GetMapping("statistics/gender")
+    public ResultUtil statisticByGenderWithParams(
             @RequestParam(name = "jobType") Integer param1,
             @RequestParam(name = "ageInterval") Integer param2,
             @RequestParam(name = "grade") Integer param3){
-        List<StatisticSex> statsResult = staffService.statisticByAgeWithParams(param1,param2,param3);
+        List<StatisticSex> statsResult = staffService.statisticByGenderWithParams(param1,param2,param3);
+        ResultUtil resultUtil = new ResultUtil(200,"统计查询成功",statsResult);
+        return resultUtil;
+    }
+
+    /**
+     * 根据年龄统计人员
+     * @param param1
+     * @param param2
+     * @param param3
+     * @return
+     */
+    @UserLoginToken
+    @GetMapping("statistics/age")
+    public ResultUtil statisticByAgeWithParams(
+            @RequestParam(name = "jobType") Integer param1,
+            @RequestParam(name = "sex") Integer param2,
+            @RequestParam(name = "grade") Integer param3
+    ){
+        List<StatisticAge> statsResult = staffService.statisticByAgeWithParams(param1,param2,param3);
         ResultUtil resultUtil = new ResultUtil(200,"统计查询成功",statsResult);
         return resultUtil;
     }

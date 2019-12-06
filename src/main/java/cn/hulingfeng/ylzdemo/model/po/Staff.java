@@ -12,6 +12,7 @@ import lombok.Data;
 @Data
 public class Staff {
     private Integer staffId;
+    private Integer companyId;
     private String staffName;
     private Integer sex;
     private Integer age;

@@ -12,7 +12,10 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @SpringBootTest
 class YlzDemoApplicationTests {
@@ -64,4 +67,16 @@ class YlzDemoApplicationTests {
         System.out.println(newStr);
     }
 
+    @Test
+    void getDate(){
+        //生成前10位
+        StringBuilder sb = new StringBuilder("CY");
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        sb.append(format.format(new Date()));
+        //生成后4位
+        AtomicInteger num = new AtomicInteger(Integer.valueOf("CY201912050099".substring(10)));
+        num.getAndIncrement();
+        sb.append(String.format("%04d",num.get()));
+        System.out.println(sb);
+    }
 }

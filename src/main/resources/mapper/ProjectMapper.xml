@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.hulingfeng.ylzdemo.mapper.ProjectMapper">
+    <resultMap id="projectMap" type="cn.hulingfeng.ylzdemo.model.po.Project">
+        <id property="projectId" column="project_id"/>
+        <result property="companyId" column="companyId"/>
+        <result property="projectName" column="project_name"/>
+        <result property="setupDate" column="setup_date"/>
+        <result property="projectGrade" column="project_grade"/>
+        <result property="note" column="note" jdbcType="CLOB" javaType="java.lang.String"/>
+    </resultMap>
+    <select id="list" resultType="cn.hulingfeng.ylzdemo.model.po.Project">
+        SELECT * FROM "project"
+    </select>
+
+</mapper>

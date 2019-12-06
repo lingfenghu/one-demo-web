@@ -22,8 +22,7 @@ import java.util.List;
 @RestController
 public class HelloController {
 
-    @Autowired
-    //require避免烦人的波浪错误提示,设置警告为warning
+    @Autowired    //require避免烦人的波浪错误提示,设置警告为warning
     private UserMapper userMapper;
 
     /**

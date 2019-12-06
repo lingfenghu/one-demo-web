@@ -1,6 +1,7 @@
 package cn.hulingfeng.ylzdemo.mapper;
 
 import cn.hulingfeng.ylzdemo.model.po.Staff;
+import cn.hulingfeng.ylzdemo.model.vo.StatisticAge;
 import cn.hulingfeng.ylzdemo.model.vo.StatisticSex;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -65,6 +66,15 @@ public interface StaffMapper {
     List<StatisticSex> statsBySexWithParams(@Param("jobType")String jobType, @Param("ageBegin")Integer ageBegin, @Param("ageEnd")Integer ageEnd, @Param("grade")String grade );
 
     /**
+     * 年龄段统计
+     * @param jobType
+     * @param sex
+     * @param grade
+     * @return
+     */
+    List<StatisticAge> statsByAgeIntervalWithParams(@Param("jobType")String jobType, @Param("sex")Integer sex, @Param("grade")String grade);
+
+    /**
      * 检验用户从业卡是否已经存在
      * @param cardId
      * @return
@@ -77,4 +87,10 @@ public interface StaffMapper {
      * @return
      */
     Integer checkIdentityIdExist(@Param("identityId")String identityId);
+
+    /**
+     * 查询库表中最大的从业卡号cardID
+     * @return
+     */
+    String getMaxCardId();
 }

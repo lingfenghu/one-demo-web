@@ -3,6 +3,7 @@
 <mapper namespace="cn.hulingfeng.ylzdemo.mapper.StaffMapper">
     <resultMap id="staffMap" type="cn.hulingfeng.ylzdemo.model.po.Staff">
         <id property="staffId" column="staff_id"></id>
+        <result property="companyId" column="company_id"></result>
         <result property="staffName" column="staff_name"></result>
         <result property="sex" column="sex"></result>
         <result property="age" column="age"></result>
@@ -17,7 +18,7 @@
         <result property="grade" column="grade"></result>
     </resultMap>
     <insert id="add" parameterType="cn.hulingfeng.ylzdemo.model.po.Staff">
-        INSERT INTO "staff"("staff_name","sex","identity_id","job_grade","tel","card_id","salary_card_id") VALUES (#{staffName},#{sex},#{identityId},#{jobGrade},#{tel},#{cardId},#{salaryCardId})
+        INSERT INTO "staff"("staff_name","sex","age","identity_id","tel","card_id","salary_card_id","project","enterprise","job_type","grade") VALUES (#{staffName},#{sex},#{age},#{identityId},#{tel},#{cardId},#{salaryCardId},#{project},#{enterprise},#{jobType},#{grade})
     </insert>
     <select id="list" resultMap="staffMap">
         SELECT * FROM "staff"
@@ -63,10 +64,32 @@
         </where>
         GROUP BY "sex"
     </select>
+    <select id="statsByAgeIntervalWithParams" resultType="cn.hulingfeng.ylzdemo.model.vo.StatisticAge">
+        SELECT (CASE
+        WHEN ("age">=18 AND "age"&lt;30) THEN '18-30岁'
+        WHEN ("age">=30 AND "age"&lt;45) THEN '30-45岁'
+        WHEN ("age">=45 AND "age"&lt;60) THEN '45-60岁'
+        ELSE '其他(小于18大于60)'
+        END) "ageInterval",COUNT(*) "count" FROM "staff"
+        <where>
+            <if test="jobType!=''">"job_type" = #{jobType}</if>
+            <if test="sex != -1 ">AND "sex" = #{sex}</if>
+            <if test="grade!=''">AND "grade" = #{grade}</if>
+        </where>
+        GROUP BY (CASE
+        WHEN ("age">=18 AND "age"&lt;30) THEN '18-30岁'
+        WHEN ("age">=30 AND "age"&lt;45) THEN '30-45岁'
+        WHEN ("age">=45 AND "age"&lt;60) THEN '45-60岁'
+        ELSE '其他(小于18大于60)'
+        END) ORDER BY "ageInterval"
+    </select>
     <select id="checkCardIdExist" resultType="integer">
         SELECT COUNT(*) FROM "staff" WHERE "card_id"=#{cardId}
     </select>
     <select id="checkIdentityIdExist" resultType="integer">
         SELECT COUNT(*) FROM "staff" WHERE "identity_id"=#{identityId}
+    </select>
+    <select id="getMaxCardId" resultType="string">
+        SELECT MAX("card_id") AS "card_id" FROM "staff"
     </select>
 </mapper>
