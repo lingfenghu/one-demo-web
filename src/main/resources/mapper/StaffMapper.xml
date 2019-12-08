@@ -2,23 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.hulingfeng.ylzdemo.mapper.StaffMapper">
     <resultMap id="staffMap" type="cn.hulingfeng.ylzdemo.model.po.Staff">
-        <id property="staffId" column="staff_id"></id>
-        <result property="companyId" column="company_id"></result>
-        <result property="staffName" column="staff_name"></result>
-        <result property="sex" column="sex"></result>
-        <result property="age" column="age"></result>
-        <result property="identityId" column="identity_id"></result>
-        <result property="jobGrade" column="job_grade"></result>
-        <result property="tel" column="tel"></result>
-        <result property="cardId" column="card_id"></result>
-        <result property="salaryCardId" column="salary_card_id"></result>
-        <result property="project" column="project"></result>
-        <result property="enterprise" column="enterprise"></result>
-        <result property="jobType" column="job_type"></result>
-        <result property="grade" column="grade"></result>
+        <id property="staffId" column="staff_id"/>
+        <result property="companyId" column="company_id"/>
+        <result property="staffName" column="staff_name"/>
+        <result property="sex" column="sex"/>
+        <result property="age" column="age"/>
+        <result property="identityId" column="identity_id"/>
+        <result property="tel" column="tel"/>
+        <result property="cardId" column="card_id"/>
+        <result property="salaryCardId" column="salary_card_id"/>
+        <result property="jobType" column="job_type"/>
+        <result property="grade" column="grade"/>
     </resultMap>
     <insert id="add" parameterType="cn.hulingfeng.ylzdemo.model.po.Staff">
-        INSERT INTO "staff"("staff_name","sex","age","identity_id","tel","card_id","salary_card_id","project","enterprise","job_type","grade") VALUES (#{staffName},#{sex},#{age},#{identityId},#{tel},#{cardId},#{salaryCardId},#{project},#{enterprise},#{jobType},#{grade})
+        <selectKey keyProperty="staffId" order="AFTER" resultType="integer">
+            SELECT staff_id_seq.currval FROM dual
+        </selectKey>
+        INSERT INTO "staff"("staff_id","company_id","staff_name","sex","age","identity_id","tel","card_id","salary_card_id","job_type","grade") VALUES (staff_id_seq.nextval,#{companyId},#{staffName},#{sex},#{age},#{identityId},#{tel},#{cardId},#{salaryCardId},#{jobType},#{grade})
     </insert>
     <select id="list" resultMap="staffMap">
         SELECT * FROM "staff"

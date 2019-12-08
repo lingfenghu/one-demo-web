@@ -2,18 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.hulingfeng.ylzdemo.mapper.EnterpriseMapper">
     <resultMap id="enterpriseMap" type="cn.hulingfeng.ylzdemo.model.po.Enterprise">
-        <id property="companyId" column="company_id"></id>
-        <result property="companyName" column="company_name"></result>
-        <result property="address" column="address"></result>
-        <result property="registerDate" column="register_date"></result>
-        <result property="principal" column="principal"></result>
-        <result property="type" column="type"></result>
-        <result property="businessPhone" column="business_phone"></result>
-        <result property="asset" column="asset"></result>
-        <collection property="projects" resultMap="cn.hulingfeng.ylzdemo.mapper.ProjectMapper.projectMap" columnPrefix="project_"></collection>
-        <collection property="staffs" resultMap="cn.hulingfeng.ylzdemo.mapper.StaffMapper.staffMap" columnPrefix="staff_"></collection>
+        <id property="companyId" column="company_id"/>
+        <result property="companyName" column="company_name"/>
+        <result property="address" column="address"/>
+        <result property="registerDate" column="register_date"/>
+        <result property="principal" column="principal"/>
+        <result property="type" column="type"/>
+        <result property="businessPhone" column="business_phone"/>
+        <result property="asset" column="asset"/>
+        <collection property="projects" resultMap="cn.hulingfeng.ylzdemo.mapper.ProjectMapper.projectMap" columnPrefix="project_"/>
+        <collection property="staffs" resultMap="cn.hulingfeng.ylzdemo.mapper.StaffMapper.staffMap" columnPrefix="staff_"/>
     </resultMap>
-    <select id="list" resultType="cn.hulingfeng.ylzdemo.model.po.Enterprise">
+    <select id="list" resultMap="enterpriseMap">
         SELECT * FROM "enterprise"
     </select>
 </mapper>

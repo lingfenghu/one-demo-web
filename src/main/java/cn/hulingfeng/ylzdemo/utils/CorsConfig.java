@@ -22,7 +22,7 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
         //保留会话session
         config.setAllowCredentials(true);
-        // 设置你要允许的网站域名，*表示任意域名 http://localhost:8081前端项目接口
+        // 设置你要允许的网站域名，*表示任意域名 http://localhost:8888前端项目接口
         config.addAllowedOrigin("*");
         // 表示任意头部信息
         config.addAllowedHeader("*");

@@ -3,7 +3,6 @@ package cn.hulingfeng.ylzdemo.mapper;
 import cn.hulingfeng.ylzdemo.model.po.Staff;
 import cn.hulingfeng.ylzdemo.model.vo.StatisticAge;
 import cn.hulingfeng.ylzdemo.model.vo.StatisticSex;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -14,7 +13,6 @@ import java.util.List;
  * @description: TODO
  * @date 2019/11/24 13:11
  */
-@Mapper
 public interface StaffMapper {
 
     /**

@@ -1,16 +1,17 @@
-package cn.hulingfeng.ylzdemo.model.po;
+package cn.hulingfeng.ylzdemo.model.vo;
 
 import lombok.Data;
+import java.util.List;
 
 /**
  * @author hlf
- * @title: Staff
+ * @title: StaffVO
  * @projectName ylzDemo
  * @description: TODO
- * @date 2019/11/21 15:00
+ * @date 2019/12/8 16:17
  */
 @Data
-public class Staff{
+public class StaffVO {
     private Integer staffId;
     private Integer companyId;
     private String staffName;
@@ -22,4 +23,6 @@ public class Staff{
     private String salaryCardId;
     private String jobType;
     private String grade;
+
+    private List<Integer> projectList;
 }

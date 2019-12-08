@@ -7,6 +7,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
+ * 加密工具类
  * @author hlf
  * @title: Md5Util
  * @projectName ylzDemo

@@ -3,7 +3,7 @@
 <mapper namespace="cn.hulingfeng.ylzdemo.mapper.ProjectMapper">
     <resultMap id="projectMap" type="cn.hulingfeng.ylzdemo.model.po.Project">
         <id property="projectId" column="project_id"/>
-        <result property="companyId" column="companyId"/>
+        <result property="companyId" column="company_id"/>
         <result property="projectName" column="project_name"/>
         <result property="setupDate" column="setup_date"/>
         <result property="projectGrade" column="project_grade"/>
@@ -12,5 +12,10 @@
     <select id="list" resultType="cn.hulingfeng.ylzdemo.model.po.Project">
         SELECT * FROM "project"
     </select>
-
+    <select id="queryByCompany" parameterType="integer" resultMap="projectMap">
+        SELECT * FROM "project"
+        <where>
+            <if test="companyId!=null">"company_id" = #{companyId}</if>
+        </where>
+    </select>
 </mapper>

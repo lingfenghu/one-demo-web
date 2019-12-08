@@ -2,6 +2,7 @@ package cn.hulingfeng.ylzdemo.controller;
 
 import cn.hulingfeng.ylzdemo.mapper.StaffMapper;
 import cn.hulingfeng.ylzdemo.model.po.Staff;
+import cn.hulingfeng.ylzdemo.model.vo.StaffVO;
 import cn.hulingfeng.ylzdemo.model.vo.StatisticAge;
 import cn.hulingfeng.ylzdemo.model.vo.StatisticSex;
 import cn.hulingfeng.ylzdemo.service.StaffService;
@@ -12,6 +13,7 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -61,13 +63,13 @@ public class StaffController {
 
     /**
      * 添加人员信息
-     * @param staff
+     * @param staffVO
      * @return
      */
     @UserLoginToken
     @PostMapping("staff")
-    public ResultUtil addStaff(@RequestBody Staff staff) {
-        Integer res = staffService.add(staff);
+    public ResultUtil addStaff(@RequestBody StaffVO staffVO) {
+        Integer res = staffService.add(staffVO);
         switch (res){
             case -1: return new ResultUtil(406,"新增人员身份证号已存在",res);
 //            case -1: return new ResultUtil(406,"新增人员从业卡号已存在",res);

@@ -22,7 +22,8 @@ spring:
     druid:
       filters: stat
       driver-class-name: oracle.jdbc.driver.OracleDriver
-      url: jdbc:oracle:thin:@192.168.11.130:1521/orcl
+      url: jdbc:oracle:thin:@localhost:1521/orcl
+#      url: jdbc:oracle:thin:@192.168.11.130:1521/orcl
       username: HLF
       password: 123456
       initial-size: 1

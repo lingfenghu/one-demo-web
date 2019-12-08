@@ -21,9 +21,9 @@ public interface ProjectMapper {
     List<Project> list();
 
     /**
-     *
+     * 查询该公司所有项目
      * @param companyId
      * @return
      */
-//    List<Project> listByCompany(@Param("companyId")Integer companyId);
+    List<Project> queryByCompany(@Param("companyId")Integer companyId);
 }

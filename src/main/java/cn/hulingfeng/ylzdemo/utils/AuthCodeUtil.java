@@ -18,6 +18,7 @@ public class AuthCodeUtil {
 
     /**
      * 图形验证码生成
+     * @return
      */
     public static Map generateAuthCode() {
         Map<String,Object> map = new HashMap();

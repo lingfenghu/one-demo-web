@@ -1,8 +1,6 @@
 package cn.hulingfeng.ylzdemo.model.po;
 
 import lombok.Data;
-
-import java.sql.Clob;
 import java.util.Date;
 
 /**

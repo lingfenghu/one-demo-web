@@ -5,6 +5,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
 /**
+ * Token工具类
  * @author hlf
  * @title: TokenUtil
  * @projectName ylzDemo

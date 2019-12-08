@@ -16,9 +16,7 @@ public class ResultUtil {
     private String msg;
     private Object object;
 
-    public ResultUtil() {
-        
-    }
+    public ResultUtil() {}
 
     public ResultUtil(Integer code, String msg, Object object) {
         this.code = code;

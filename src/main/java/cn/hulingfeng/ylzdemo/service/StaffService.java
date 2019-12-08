@@ -1,13 +1,17 @@
 package cn.hulingfeng.ylzdemo.service;
 
+import cn.hulingfeng.ylzdemo.mapper.JoinMapper;
 import cn.hulingfeng.ylzdemo.mapper.StaffMapper;
+import cn.hulingfeng.ylzdemo.model.po.Join;
 import cn.hulingfeng.ylzdemo.model.po.Staff;
+import cn.hulingfeng.ylzdemo.model.vo.StaffVO;
 import cn.hulingfeng.ylzdemo.model.vo.StatisticAge;
 import cn.hulingfeng.ylzdemo.model.vo.StatisticSex;
 import cn.hulingfeng.ylzdemo.utils.CardIdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +28,8 @@ public class StaffService {
 
     @Autowired
     private StaffMapper staffMapper;
+    @Autowired
+    private JoinMapper joinMapper;
 
     /**
      * 查询所用人员
@@ -33,19 +39,33 @@ public class StaffService {
         return staffMapper.list();
     }
 
-    public Integer add(Staff staff) {
+    /**
+     * 添加人员信息
+     * @param staffVO
+     * @return
+     */
+    @Transactional(isolation = Isolation.DEFAULT,rollbackFor = Exception.class)
+    public Integer add(StaffVO staffVO) {
+        //生成从业卡号
         String currentCardId = staffMapper.getMaxCardId();
         String newCardId = CardIdUtil.getLatestCardId(currentCardId);
+        //装填人员信息
+        Staff staff = new Staff();
+        staff.setCompanyId(staffVO.getCompanyId());
         staff.setCardId(newCardId);
-        String identityId = staff.getIdentityId();
-//        Integer thisCard = staffMapper.checkCardIdExist(cardId);
+        staff.setStaffName(staffVO.getStaffName());
+        staff.setSex(staffVO.getSex());
+        staff.setSalaryCardId(staffVO.getSalaryCardId());
+        staff.setTel(staffVO.getTel());
+        staff.setJobType(staffVO.getJobType());
+        staff.setGrade(staffVO.getGrade());
+        //检验身份证号是否已存在
+        String identityId = staffVO.getIdentityId();
         Integer thisIdentityId = staffMapper.checkIdentityIdExist(identityId);
-//        if(thisCard > 0) {
-//            return -1;
-//        }
         if(thisIdentityId > 0){
             return -1;
         }
+        staff.setIdentityId(identityId);
         //计算年龄
         if(identityId.length() == 18) {
             Integer birthdateYear = Integer.valueOf(identityId.substring(6, 10));
@@ -53,7 +73,14 @@ public class StaffService {
             Integer nowYear = Integer.valueOf(sdf.format(new Date()));
             staff.setAge(nowYear - birthdateYear);
         }
+        //人员项目数据插入
         if(staffMapper.add(staff)){
+            Join join = new Join();
+            join.setStaffId(staff.getStaffId());
+            for(Integer projectId : staffVO.getProjectList()){
+                join.setProjectId(projectId);
+                joinMapper.add(join);
+            }
             return 1;
         }else {
             return 0;

@@ -30,7 +30,7 @@ public class JobController {
     private JobMapper jobMapper;
 
     /**
-     *
+     * 分页查询所有工种
      * @param pageNum
      * @param pageSize
      * @return
@@ -48,7 +48,7 @@ public class JobController {
     }
 
     /**
-     *
+     * 修改工种信息
      * @param job
      * @return
      */
@@ -61,7 +61,7 @@ public class JobController {
     }
 
     /**
-     *
+     * 删除工种信息
      * @param jobId
      * @return
      */
