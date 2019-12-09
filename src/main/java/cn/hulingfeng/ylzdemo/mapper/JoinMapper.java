@@ -1,6 +1,7 @@
 package cn.hulingfeng.ylzdemo.mapper;
 
 import cn.hulingfeng.ylzdemo.model.po.Join;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @author hlf
@@ -17,4 +18,11 @@ public interface JoinMapper {
      * @return
      */
     Boolean add(Join join);
+
+    /**
+     * 删除员工项目关联
+     * @param staffId
+     * @return
+     */
+    Boolean delete(@Param("staffId") Integer staffId);
 }

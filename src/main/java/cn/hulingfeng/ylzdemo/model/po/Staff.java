@@ -2,6 +2,8 @@ package cn.hulingfeng.ylzdemo.model.po;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author hlf
  * @title: Staff
@@ -22,4 +24,7 @@ public class Staff{
     private String salaryCardId;
     private String jobType;
     private String grade;
+
+    private Enterprise enterprise;
+    private List<Project> projects;
 }

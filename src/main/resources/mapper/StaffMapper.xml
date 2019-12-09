@@ -13,6 +13,8 @@
         <result property="salaryCardId" column="salary_card_id"/>
         <result property="jobType" column="job_type"/>
         <result property="grade" column="grade"/>
+        <association property="enterprise" resultMap="cn.hulingfeng.ylzdemo.mapper.EnterpriseMapper.enterpriseMap" columnPrefix="e_"/>
+        <collection property="projects" resultMap="cn.hulingfeng.ylzdemo.mapper.ProjectMapper.projectMap" columnPrefix="p_"/>
     </resultMap>
     <insert id="add" parameterType="cn.hulingfeng.ylzdemo.model.po.Staff">
         <selectKey keyProperty="staffId" order="AFTER" resultType="integer">
@@ -23,27 +25,60 @@
     <select id="list" resultMap="staffMap">
         SELECT * FROM "staff"
     </select>
+    <select id="queryByStaffId" resultMap="staffMap">
+        SELECT "staff".*,
+        "join"."project_id" AS "p_project_id",
+        "project_name" AS "p_project_name",
+        "setup_date" AS "p_setup_date",
+        "project_grade" AS "p_project_grade",
+        "note" AS "p_note",
+        "company_name" AS "e_company_name",
+        "address" AS "e_address",
+        "register_date" AS "e_register_date",
+        "principal" AS "e_principal",
+        "type" AS "e_type",
+        "business_phone" AS "e_business_phone",
+        "asset" AS "e_asset"
+        FROM (SELECT * FROM "staff" WHERE "staff_id" = #{staffId}) "staff"
+        LEFT JOIN "join" ON "staff"."staff_id" = "join"."staff_id"
+        LEFT JOIN "project" ON "join"."project_id" = "project"."project_id"
+        LEFT JOIN "enterprise" ON "staff"."company_id" = "enterprise"."company_id"
+    </select>
     <select id="queryByParameters" resultMap="staffMap">
-        SELECT * FROM "staff"
+        SELECT "staff".*,
+        "join"."project_id" AS "p_project_id",
+        "project_name" AS "p_project_name",
+        "setup_date" AS "p_setup_date",
+        "project_grade" AS "p_project_grade",
+        "note" AS "p_note",
+        "company_name" AS "e_company_name",
+        "address" AS "e_address",
+        "register_date" AS "e_register_date",
+        "principal" AS "e_principal",
+        "type" AS "e_type",
+        "business_phone" AS "e_business_phone",
+        "asset" AS "e_asset"
+        FROM "staff"
+        LEFT JOIN "join" ON "staff"."staff_id" = "join"."staff_id"
+        LEFT JOIN "project" ON "join"."project_id" = "project"."project_id"
+        LEFT JOIN "enterprise" ON "staff"."company_id" = "enterprise"."company_id"
         <trim prefix="WHERE" prefixOverrides="AND|OR ">
-            <if test="project != ''">"project" = #{project} </if>
+            <if test="projectId != ''">"join"."project_id" = #{projectId} </if>
             <if test="cardId != ''">AND "card_id" = #{cardId} </if>
-            <if test="staffName != ''">AND"staff_name" LIKE CONCAT(CONCAT('%',#{staffName}),'%')</if>
+            <if test="staffName != ''">AND"staff_name" LIKE CONCAT(CONCAT('%',#{staffName}),'%') </if>
         </trim>
     </select>
     <update id="update" parameterType="cn.hulingfeng.ylzdemo.model.po.Staff">
         UPDATE "staff"
         <set>
+            <if test="companyId != null">"company_id" = #{companyId},</if>
             <if test="staffName != null">"staff_name" = #{staffName},</if>
             <if test="sex != null">"sex" = #{sex},</if>
             <if test="age != null">"age" = #{age},</if>
             <if test="identityId != null">"identity_id" = #{identityId},</if>
-            <if test="jobGrade != null">"job_grade" = #{jobGrade},</if>
             <if test="tel != null">"tel" = #{tel},</if>
             <if test="cardId != null">"card_id" = #{cardId},</if>
             <if test="salaryCardId != null">"salary_card_id" = #{salaryCardId},</if>
-            <if test="project != null">"project" = #{project},</if>
-            <if test="enterprise != null">"enterprise" = #{enterprise},</if>
             <if test="jobType != null">"job_type" = #{jobType},</if>
             <if test="grade != null">"grade" = #{grade}</if>
         </set>

@@ -9,7 +9,7 @@
         <result property="projectGrade" column="project_grade"/>
         <result property="note" column="note" jdbcType="CLOB" javaType="java.lang.String"/>
     </resultMap>
-    <select id="list" resultType="cn.hulingfeng.ylzdemo.model.po.Project">
+    <select id="list" resultMap="projectMap">
         SELECT * FROM "project"
     </select>
     <select id="queryByCompany" parameterType="integer" resultMap="projectMap">

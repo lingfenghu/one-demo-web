@@ -29,13 +29,20 @@ public interface StaffMapper {
     List<Staff> list();
 
     /**
+     * 根据人员编号查询人员信息
+     * @param staffId
+     * @return
+     */
+    Staff queryByStaffId(@Param("staffId")Integer staffId);
+
+    /**
      * 条件查询人员
      * @param staffName
-     * @param project
+     * @param projectId
      * @param cardId
      * @return
      */
-    List<Staff> queryByParameters(@Param("project") String project,@Param("cardId") String cardId,@Param("staffName") String staffName);
+    List<Staff> queryByParameters(@Param("projectId") String projectId,@Param("cardId") String cardId,@Param("staffName") String staffName);
 
     /**
      * 更新人员信息

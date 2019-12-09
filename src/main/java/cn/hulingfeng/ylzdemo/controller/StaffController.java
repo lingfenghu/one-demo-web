@@ -38,23 +38,23 @@ public class StaffController {
 
     /**
      * 查询所有人员 分页
-     * @param project
+     * @param projectId
      * @param cardId
      * @param staffName
      * @param pageNum
      * @param pageSize
      * @return
      */
-    @UserLoginToken
+//    @UserLoginToken
     @GetMapping("staff")
     public ResultUtil listStaff(
-            @RequestParam(name = "project",defaultValue = "",required = false) String project,
+            @RequestParam(name = "projectId",defaultValue = "",required = false) String projectId,
             @RequestParam(name = "cardId",defaultValue = "",required = false) String cardId,
             @RequestParam(name = "staffName",defaultValue = "",required = false) String staffName,
             @RequestParam(required = false,defaultValue = "1") Integer pageNum,
             @RequestParam(required = false,defaultValue = "10") Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Staff> staffList = staffMapper.queryByParameters(project,cardId,staffName);
+        List<Staff> staffList = staffMapper.queryByParameters(projectId,cardId,staffName);
         PageInfo<Staff> staffs = new PageInfo<>(staffList);
         ResultUtil resultUtil = new ResultUtil(200,"查询人员信息成功",staffs);
         return resultUtil;
@@ -81,13 +81,13 @@ public class StaffController {
 
     /**
      * 修改人员信息
-     * @param staff
+     * @param staffVO
      * @return
      */
     @UserLoginToken
     @PutMapping("staff")
-    public ResultUtil updateStaff(@RequestBody Staff staff) {
-        Boolean res = staffMapper.update(staff);
+    public ResultUtil updateStaff(@RequestBody StaffVO staffVO) {
+        Boolean res = staffService.update(staffVO);
         ResultUtil resultUtil= res ? new ResultUtil(200,"修改人员信息成功",res) : new ResultUtil(500,"修改人员信息失败",res);
         return resultUtil;
     }
@@ -105,17 +105,17 @@ public class StaffController {
         return resultUtil;
     }
 
-    /**
-     * 查询人员项目列表
-     * @return
-     */
-    @UserLoginToken
-    @GetMapping("staff/projects")
-    public ResultUtil getProjects(){
-        List<String> projects = staffMapper.getProjects();
-        ResultUtil resultUtil =  new ResultUtil(200,"查询项目信息成功",projects);
-        return  resultUtil;
-    }
+//    /**
+//     * 查询人员项目列表
+//     * @return
+//     */
+//    @UserLoginToken
+//    @GetMapping("staff/projects")
+//    public ResultUtil getProjects(){
+//        List<String> projects = staffMapper.getProjects();
+//        ResultUtil resultUtil =  new ResultUtil(200,"查询项目信息成功",projects);
+//        return  resultUtil;
+//    }
 
     /**
      * 根据性别统计人员

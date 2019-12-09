@@ -3,6 +3,7 @@ package cn.hulingfeng.ylzdemo.service;
 import cn.hulingfeng.ylzdemo.mapper.JoinMapper;
 import cn.hulingfeng.ylzdemo.mapper.StaffMapper;
 import cn.hulingfeng.ylzdemo.model.po.Join;
+import cn.hulingfeng.ylzdemo.model.po.Project;
 import cn.hulingfeng.ylzdemo.model.po.Staff;
 import cn.hulingfeng.ylzdemo.model.vo.StaffVO;
 import cn.hulingfeng.ylzdemo.model.vo.StatisticAge;
@@ -84,6 +85,62 @@ public class StaffService {
             return 1;
         }else {
             return 0;
+        }
+    }
+
+    /**
+     * 更新人员信息及关联
+     * @param staffVO
+     * @return
+     */
+    @Transactional(isolation = Isolation.DEFAULT,rollbackFor = Exception.class)
+    public Boolean update(StaffVO staffVO){
+        Staff oldStaff = staffMapper.queryByStaffId(staffVO.getStaffId());
+        if(oldStaff==null){
+            return false;
+        }
+        //装填人员信息
+        Staff staff = new Staff();
+        staff.setStaffId(staffVO.getStaffId());
+        staff.setStaffName(staffVO.getStaffName());
+        staff.setSex(staffVO.getSex());
+        staff.setCompanyId(staffVO.getCompanyId());
+        staff.setCardId(staffVO.getCardId());
+        staff.setSex(staffVO.getSex());
+        staff.setSalaryCardId(staffVO.getSalaryCardId());
+        staff.setTel(staffVO.getTel());
+        staff.setJobType(staffVO.getJobType());
+        staff.setGrade(staffVO.getGrade());
+        if(staffMapper.update(staff)){
+            //更新人员项目关联为先删除再新增
+            List<Project> oldProjects = oldStaff.getProjects();
+            if(oldProjects.size()>0){
+                joinMapper.delete(staffVO.getStaffId());
+            }
+            Join join = new Join();
+            join.setStaffId(staffVO.getStaffId());
+            for(Integer projectId : staffVO.getProjectList()){
+                join.setProjectId(projectId);
+                joinMapper.add(join);
+            }
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
+    /**
+     * 删除人员信息及关联
+     * @param staffId
+     * @return
+     */
+    @Transactional(isolation = Isolation.DEFAULT,rollbackFor = Exception.class)
+    public Boolean delete(Integer staffId){
+        if(joinMapper.delete(staffId)){
+            return staffMapper.delete(staffId);
+        }else{
+            return false;
         }
     }
 
