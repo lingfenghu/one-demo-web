@@ -2,6 +2,8 @@ package cn.hulingfeng.ylzdemo.mapper;
 
 import cn.hulingfeng.ylzdemo.model.po.Staff;
 import cn.hulingfeng.ylzdemo.model.vo.StatisticAge;
+import cn.hulingfeng.ylzdemo.model.vo.StatisticGrade;
+import cn.hulingfeng.ylzdemo.model.vo.StatisticJobType;
 import cn.hulingfeng.ylzdemo.model.vo.StatisticSex;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -78,6 +80,27 @@ public interface StaffMapper {
      * @return
      */
     List<StatisticAge> statsByAgeIntervalWithParams(@Param("jobType")String jobType, @Param("sex")Integer sex, @Param("grade")String grade);
+
+    /**
+     * 工种统计
+     * @param ageBegin
+     * @param ageEnd
+     * @param sex
+     * @param grade
+     * @return
+     */
+    List<StatisticJobType> statisticByJobTypeWithParams(@Param("ageBegin")Integer ageBegin, @Param("ageEnd")Integer ageEnd, @Param("sex")Integer sex, @Param("grade")String grade);
+
+    /**
+     * 等级统计
+     * @param jobType
+     * @param sex
+     * @param ageBegin
+     * @param ageEnd
+     * @return
+     */
+    List<StatisticGrade> statisticByGradeWithParams(@Param("jobType")String jobType, @Param("sex")Integer sex, @Param("ageBegin")Integer ageBegin, @Param("ageEnd")Integer ageEnd);
+
 
     /**
      * 检验用户从业卡是否已经存在

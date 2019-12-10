@@ -71,7 +71,7 @@
     <update id="update" parameterType="cn.hulingfeng.ylzdemo.model.po.Staff">
         UPDATE "staff"
         <set>
-            <if test="companyId != null">"company_id" = #{companyId},</if>
+            "company_id" = #{companyId, jdbcType=VARCHAR},
             <if test="staffName != null">"staff_name" = #{staffName},</if>
             <if test="sex != null">"sex" = #{sex},</if>
             <if test="age != null">"age" = #{age},</if>
@@ -117,6 +117,24 @@
         WHEN ("age">=45 AND "age"&lt;60) THEN '45-60岁'
         ELSE '其他(小于18大于60)'
         END) ORDER BY "ageInterval"
+    </select>
+    <select id="statisticByJobTypeWithParams" resultType="cn.hulingfeng.ylzdemo.model.vo.StatisticJobType">
+        SELECT "job_type" AS "jobType",COUNT(*) "count" FROM "staff"
+        <where>
+            <if test="ageBegin != 0 and ageEnd != 0 ">"age" BETWEEN #{ageBegin} AND #{ageEnd}</if>
+            <if test="sex != -1">AND "sex" = #{sex}</if>
+            <if test="grade != ''">AND "grade" = #{grade}</if>
+        </where>
+        GROUP BY "job_type"
+    </select>
+    <select id="statisticByGradeWithParams" resultType="cn.hulingfeng.ylzdemo.model.vo.StatisticGrade">
+        SELECT "grade",COUNT(*) "count" FROM "staff"
+        <where>
+            <if test="jobType != ''">"job_type" = #{jobType}</if>
+            <if test="sex != -1">AND "sex" = #{sex}</if>
+            <if test="ageBegin != 0 and ageEnd != 0 ">AND "age" BETWEEN #{ageBegin} AND #{ageEnd}</if>
+        </where>
+        GROUP BY "grade" ORDER BY "grade"
     </select>
     <select id="checkCardIdExist" resultType="integer">
         SELECT COUNT(*) FROM "staff" WHERE "card_id"=#{cardId}

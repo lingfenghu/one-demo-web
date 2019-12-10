@@ -5,9 +5,7 @@ import cn.hulingfeng.ylzdemo.mapper.StaffMapper;
 import cn.hulingfeng.ylzdemo.model.po.Join;
 import cn.hulingfeng.ylzdemo.model.po.Project;
 import cn.hulingfeng.ylzdemo.model.po.Staff;
-import cn.hulingfeng.ylzdemo.model.vo.StaffVO;
-import cn.hulingfeng.ylzdemo.model.vo.StatisticAge;
-import cn.hulingfeng.ylzdemo.model.vo.StatisticSex;
+import cn.hulingfeng.ylzdemo.model.vo.*;
 import cn.hulingfeng.ylzdemo.utils.CardIdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -206,4 +204,62 @@ public class StaffService {
         return statsResult;
     }
 
+    /**
+     * 工种统计
+     * @param param1
+     * @param param2
+     * @param param3
+     * @return
+     */
+    public List<StatisticJobType> statisticByJobTypeWithParams(Integer param1, Integer param2, Integer param3){
+        Integer ageBegin = 0;
+        Integer ageEnd = 0;
+        switch (param1){
+            case 0: ageBegin=0;ageEnd=0;break;
+            case 1: ageBegin=18;ageEnd=30;break;
+            case 2: ageBegin=30;ageEnd=45;break;
+            case 3: ageBegin=45;ageEnd=60;break;
+            default:
+        }
+        Integer sex = param2;
+        String grade = "";
+        switch (param3){
+            case 0: grade="";break;
+            case 1: grade="A";break;
+            case 2: grade="B";break;
+            case 3: grade="C";break;
+            default:
+        }
+        List<StatisticJobType> statsResult = staffMapper.statisticByJobTypeWithParams(ageBegin,ageEnd,sex,grade);
+        return statsResult;
+    }
+
+    /**
+     * 等级统计
+     * @param param1
+     * @param param2
+     * @param param3
+     * @return
+     */
+    public List<StatisticGrade> statisticByGradeWithParams(Integer param1, Integer param2, Integer param3){
+        String jobType = "";
+        Integer sex = param1;
+        switch (param2){
+            case 0: jobType="";break;
+            case 1: jobType="普通";break;
+            case 2: jobType="特殊";break;
+            default:
+        }
+        Integer ageBegin = 0;
+        Integer ageEnd = 0;
+        switch (param3){
+            case 0: ageBegin=0;ageEnd=0;break;
+            case 1: ageBegin=18;ageEnd=30;break;
+            case 2: ageBegin=30;ageEnd=45;break;
+            case 3: ageBegin=45;ageEnd=60;break;
+            default:
+        }
+        List<StatisticGrade> statsResult = staffMapper.statisticByGradeWithParams(jobType,sex,ageBegin,ageEnd);
+        return statsResult;
+    }
 }

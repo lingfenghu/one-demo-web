@@ -2,9 +2,7 @@ package cn.hulingfeng.ylzdemo.controller;
 
 import cn.hulingfeng.ylzdemo.mapper.StaffMapper;
 import cn.hulingfeng.ylzdemo.model.po.Staff;
-import cn.hulingfeng.ylzdemo.model.vo.StaffVO;
-import cn.hulingfeng.ylzdemo.model.vo.StatisticAge;
-import cn.hulingfeng.ylzdemo.model.vo.StatisticSex;
+import cn.hulingfeng.ylzdemo.model.vo.*;
 import cn.hulingfeng.ylzdemo.service.StaffService;
 import cn.hulingfeng.ylzdemo.utils.ResultUtil;
 import cn.hulingfeng.ylzdemo.utils.UserLoginToken;
@@ -13,7 +11,6 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -105,18 +102,6 @@ public class StaffController {
         return resultUtil;
     }
 
-//    /**
-//     * 查询人员项目列表
-//     * @return
-//     */
-//    @UserLoginToken
-//    @GetMapping("staff/projects")
-//    public ResultUtil getProjects(){
-//        List<String> projects = staffMapper.getProjects();
-//        ResultUtil resultUtil =  new ResultUtil(200,"查询项目信息成功",projects);
-//        return  resultUtil;
-//    }
-
     /**
      * 根据性别统计人员
      * @param param1
@@ -150,6 +135,42 @@ public class StaffController {
             @RequestParam(name = "grade") Integer param3
     ){
         List<StatisticAge> statsResult = staffService.statisticByAgeWithParams(param1,param2,param3);
+        ResultUtil resultUtil = new ResultUtil(200,"统计查询成功",statsResult);
+        return resultUtil;
+    }
+
+    /**
+     * 根据工种统计人员
+     * @param param1
+     * @param param2
+     * @param param3
+     * @return
+     */
+    @GetMapping("statistics/job_type")
+    public ResultUtil statisticByJobTypeWithParams(
+            @RequestParam(name = "ageInterval") Integer param1,
+            @RequestParam(name = "sex") Integer param2,
+            @RequestParam(name = "grade") Integer param3
+    ){
+        List<StatisticJobType> statsResult = staffService.statisticByJobTypeWithParams(param1,param2,param3);
+        ResultUtil resultUtil = new ResultUtil(200,"统计查询成功",statsResult);
+        return resultUtil;
+    }
+
+    /**
+     * 根据等级统计人员
+     * @param param1
+     * @param param2
+     * @param param3
+     * @return
+     */
+    @GetMapping("statistics/grade")
+    public ResultUtil statisticByGradeWithParams(
+            @RequestParam(name = "sex") Integer param1,
+            @RequestParam(name = "jobType") Integer param2,
+            @RequestParam(name = "ageInterval") Integer param3
+    ){
+        List<StatisticGrade> statsResult = staffService.statisticByGradeWithParams(param1,param2,param3);
         ResultUtil resultUtil = new ResultUtil(200,"统计查询成功",statsResult);
         return resultUtil;
     }
