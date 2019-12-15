@@ -38,10 +38,13 @@ spring:
       test-on-return: false
       pool-prepared-statements: false
       max-pool-prepared-statement-per-connection-size: 20
-#模板文件.html存放
+  #模板文件.html存放 直接在resources下
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
+  servlet:
+    multipart:
+      max-file-size: 10MB
 #日志级别
 logging:
   level:

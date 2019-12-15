@@ -23,6 +23,7 @@ public class StaffVO {
     private String salaryCardId;
     private String jobType;
     private String grade;
+    private String avatarUrl;
 
     private List<Integer> projectList;
 }

@@ -12,6 +12,8 @@ import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 /**
@@ -42,7 +44,7 @@ public class StaffController {
      * @param pageSize
      * @return
      */
-//    @UserLoginToken
+    @UserLoginToken
     @GetMapping("staff")
     public ResultUtil listStaff(
             @RequestParam(name = "projectId",defaultValue = "",required = false) String projectId,
@@ -173,5 +175,15 @@ public class StaffController {
         List<StatisticGrade> statsResult = staffService.statisticByGradeWithParams(param1,param2,param3);
         ResultUtil resultUtil = new ResultUtil(200,"统计查询成功",statsResult);
         return resultUtil;
+    }
+
+    /**
+     * 人员头像文件上传
+     * @param avatarImag
+     */
+    @PostMapping("avatar/upload")
+    public ResultUtil uploadStaffAvatar(@RequestParam(value = "file") MultipartFile avatarImag){
+        String avatarUrl = staffService.uploadStaffAvatar(avatarImag);
+        return new ResultUtil(200,"图片上传成功",avatarUrl);
     }
 }

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -80,6 +81,9 @@ public class UserService {
         session.removeAttribute("keyCode");
         session.setAttribute("keyCode",map.get("key"));
         try{
+            //测试生成文件到指定路径
+//            BufferedImage image = (BufferedImage)map.get("img");
+//            ImageIO.write(image,"jpeg",new File("src/main/resources/static/img/auth-code.jpeg"));
             ImageIO.write((BufferedImage)map.get("img"),"jpeg",response.getOutputStream());
         }catch (IOException e){
             e.printStackTrace();

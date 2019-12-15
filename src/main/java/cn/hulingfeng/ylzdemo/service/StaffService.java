@@ -7,10 +7,17 @@ import cn.hulingfeng.ylzdemo.model.po.Project;
 import cn.hulingfeng.ylzdemo.model.po.Staff;
 import cn.hulingfeng.ylzdemo.model.vo.*;
 import cn.hulingfeng.ylzdemo.utils.CardIdUtil;
+import cn.hulingfeng.ylzdemo.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 @Service
 public class StaffService {
-
+//    private String filePath =
     @Autowired
     private StaffMapper staffMapper;
     @Autowired
@@ -261,5 +268,24 @@ public class StaffService {
         }
         List<StatisticGrade> statsResult = staffMapper.statisticByGradeWithParams(jobType,sex,ageBegin,ageEnd);
         return statsResult;
+    }
+
+    public String uploadStaffAvatar(MultipartFile file){
+        String path = "src/main/resources/static/image";
+        if(!file.isEmpty()){
+            String originalFilename = file.getOriginalFilename();
+            //生成文件名
+            String newFileName = FileUtil.getFileName(originalFilename);
+            File dest = new File(new File(path).getAbsolutePath()+"/"+newFileName);
+            if(!dest.getParentFile().exists()){
+                dest.getParentFile().mkdirs();
+            }
+            try{
+                file.transferTo(dest);
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        return "";
     }
 }

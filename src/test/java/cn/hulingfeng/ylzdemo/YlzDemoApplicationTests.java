@@ -15,6 +15,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @SpringBootTest
@@ -50,7 +51,7 @@ class YlzDemoApplicationTests {
         g.drawString(codeStr,8,24);
         g.dispose();
         try{
-            ImageIO.write(image,"jpeg",new File("auth-code.jpeg"));
+            ImageIO.write(image,"jpeg",new File("src/main/resources/static/image/auth-code.jpeg"));
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -78,5 +79,9 @@ class YlzDemoApplicationTests {
         num.getAndIncrement();
         sb.append(String.format("%04d",num.get()));
         System.out.println(sb);
+//        路径测试
+//        System.out.println(System.getProperty("user.dir"));
+//        UUID测试
+//        System.out.println(UUID.randomUUID().toString().replaceAll("-",""));
     }
 }

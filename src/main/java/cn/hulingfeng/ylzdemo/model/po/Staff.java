@@ -24,6 +24,7 @@ public class Staff{
     private String salaryCardId;
     private String jobType;
     private String grade;
+    private String avatarUrl;
 
     private Enterprise enterprise;
     private List<Project> projects;
