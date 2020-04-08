@@ -13,11 +13,13 @@
 #### swagger文档
 http://localhost:8080/swagger-ui.html#/
 
-## ylz-demo-web 考核项目前端部分 [前端部分](https://github.com/lingfenghu/ylz-demo-front)
+## ylz-demo-web 考核项目后端部分 [前端部分](https://github.com/lingfenghu/ylz-demo-front)
 
 ##### 项目图片预览：
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
+![登录页](https://github.com/lingfenghu/ylz-demo-front/blob/master/raw/1.png)
+![展示页](https://github.com/lingfenghu/ylz-demo-front/blob/master/raw/2.png)
+![展示页](https://github.com/lingfenghu/ylz-demo-front/blob/master/raw/3.png)
+![展示页](https://github.com/lingfenghu/ylz-demo-front/blob/master/raw/4.png)
+
+### 欢迎参观
+* [个人主页](https://lingfenghu.github.io/)
