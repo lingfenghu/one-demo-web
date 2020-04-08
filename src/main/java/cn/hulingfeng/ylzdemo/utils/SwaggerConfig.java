@@ -45,7 +45,6 @@ public class SwaggerConfig {
                 //接口文档路径选择器
                 .paths(Predicates.not(PathSelectors.regex("/error.*")))
                 .build()
-//                .globalOperationParameters()
                 //全局统一token
                 .securitySchemes(securitySchemes())
                 .securityContexts(securityContexts());
