@@ -1,4 +1,4 @@
-# 从业卡管理系统--前后端分离（ylz入职考核项目）
+# 从业卡管理系统--前后端分离
 后端框架：SpringBoot
 涉及到的技术栈：lombok插件，pageHelper分页插件,SpringWebMvc,Mybatis数据关系映射,Druid数据连接管理,Jwt Token认证,Swagger文档管理
 
